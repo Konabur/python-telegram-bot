@@ -8,7 +8,7 @@ def start(update: Update, context: CallbackContext) -> None:
     i = 1440
     while i > 720:
         time.sleep(120)
-        msg.edit_text(time.strftime('%H:%M')
+        msg.edit_text(time.strftime('%H:%M'))
 
 updater = Updater(os.environ.get("TOKEN"), use_context=True)
 
