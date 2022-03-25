@@ -9,6 +9,7 @@ dp = Dispatcher(bot)
 # Включаем логирование, чтобы не пропустить важные сообщения
 logging.basicConfig(level=logging.INFO)
 
+
 @dp.message_handler(filters.CommandStart())
 def start(message: types.Message) -> None:
     msg = await message.reply(f'Hello {message.from_user.first_name}\nI am a sample Telegram bot made with python-telegram-bot!')
