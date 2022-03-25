@@ -17,7 +17,7 @@ async def start(message: types.Message) -> None:
     while i > 0:
         await asincio.sleep(5)
         i -= 2
-        await msg.edit_text(time.strftime('%H:%M'))
+        await msg.edit(time.strftime('%H:%M'))
         
 @dp.message_handler(filters.IDFilter(chat_id=416507614))
 async def message_(message: types.Message):
