@@ -1,6 +1,6 @@
 import logging
 from aiogram import Bot, Dispatcher, executor, types, filters
-import os
+import os, asyncio
 
 # Объект бота
 bot = Bot(token=os.getenv('TOKEN'))
@@ -15,7 +15,7 @@ async def start(message: types.Message) -> None:
     msg = await message.reply(f'Hello {message.from_user.first_name}\nI am a sample Telegram bot made with python-telegram-bot!')
     i = 1440
     while i > 0:
-        time.sleep(120)
+        await asincio.sleep(5)
         i -= 2
         await msg.edit_text(time.strftime('%H:%M'))
         
