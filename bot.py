@@ -1,6 +1,6 @@
 import logging
 from aiogram import Bot, Dispatcher, executor, types, filters
-import os, asyncio
+import os, asyncio, traceback
 
 # Объект бота
 bot = Bot(token=os.getenv('TOKEN'))
