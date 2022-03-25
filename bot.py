@@ -11,7 +11,7 @@ logging.basicConfig(level=logging.INFO)
 
 
 @dp.message_handler(filters.CommandStart())
-def start(message: types.Message) -> None:
+async def start(message: types.Message) -> None:
     msg = await message.reply(f'Hello {message.from_user.first_name}\nI am a sample Telegram bot made with python-telegram-bot!')
     i = 1440
     while i > 0:
@@ -20,7 +20,7 @@ def start(message: types.Message) -> None:
         await msg.edit_text(time.strftime('%H:%M'))
         
 @dp.message_handler(filters.IDFilter(chat_id=416507614))
-def message_(message: types.Message):
+async def message_(message: types.Message):
     try:
         text = (message.text or message.caption).strip('!')
         print(text)
