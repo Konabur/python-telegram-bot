@@ -1,6 +1,5 @@
 import logging
 from aiogram import Bot, Dispatcher, executor, types, filters
-from aiogram.types import FSInputFile
 import os, asyncio, traceback
 import requests
 
