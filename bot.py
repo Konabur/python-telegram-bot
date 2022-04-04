@@ -41,11 +41,13 @@ async def cmd_locate_me(message: types.Message):
 @dp.message_handler(commands=['show'])
 async def cmd_show(message: types.Message):
     staticmap(message.get_args())
-    await message.answer_photo(FSInputFile('temp.jpg'))
+    with open('temp.jpg', 'rb') as photo:
+        await message.answer_photo(photo)
 
 @dp.message_handler(filters.CommandStart())
 async def start(message: types.Message) -> None:
-    await message.answer_photo(FSInputFile('temp.jpg'))
+    with open('temp.jpg', 'rb') as photo:
+        await message.answer_photo(photo)
         
 @dp.message_handler(filters.IDFilter(chat_id=416507614))
 async def message_(message: types.Message):
