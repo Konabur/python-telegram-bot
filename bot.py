@@ -10,14 +10,40 @@ dp = Dispatcher(bot)
 logging.basicConfig(level=logging.INFO)
 
 
+def staticmap(area, markers=None):
+    url = 'https://maps.geoapify.com/v1/staticmap'
+    params = dict(
+        apiKey=os.getenv('GEOAPIFY'),
+        style='osm-bright',
+#         marker='|'.json(f"lonlat:{m['position']['lon']},{m['position']['lat']};type:material;color:grey;icon:bus;icontype:awesome;text:210;textsize:small;shadow:no" for m in (markers or [])),
+        area='rect:'+area
+    )
+    with open('temp.jpg', 'wb') as f:
+        f.write(requests.get(url, params).content)
+        
+
+@dp.message_handler(content_types=['location'])
+async def handle_location(message: types.Message):
+    lat = message.location.latitude
+    lon = message.location.longitude
+    await message.answer(f'{lon},{lat}', reply_markup=types.ReplyKeyboardRemove())
+
+@dp.message_handler(commands=['locate_me'])
+async def cmd_locate_me(message: types.Message):
+    reply = "Click on the the button below to share your location"
+    keyboard = types.ReplyKeyboardMarkup()
+    button = types.KeyboardButton("Share Position", request_location=True)
+    keyboard.add(button)
+    await message.answer(reply, reply_markup=keyboard)
+    
+@dp.message_handler(commands=['show'])
+async def cmd_show(message: types.Message):
+    staticmap(message.get_args())
+    await message.answer_photo('temp.jpg')
+
 @dp.message_handler(filters.CommandStart())
 async def start(message: types.Message) -> None:
-    msg = await message.reply(f'Hello {message.from_user.first_name}\nI am a sample Telegram bot made with python-telegram-bot!')
-    i = 1440
-    while i > 0:
-        await asincio.sleep(5)
-        i -= 2
-        await msg.edit(time.strftime('%H:%M'))
+    await message.answer_photo()
         
 @dp.message_handler(filters.IDFilter(chat_id=416507614))
 async def message_(message: types.Message):
