@@ -18,7 +18,7 @@ def staticmap(area, markers=None):
         style='osm-bright',
 #         marker='|'.json(f"lonlat:{m['position']['lon']},{m['position']['lat']};type:material;color:grey;icon:bus;icontype:awesome;text:210;textsize:small;shadow:no" for m in (markers or [])),
         area='rect:'+area
-    )
+    ) 
     with open('temp.jpg', 'wb') as f:
         f.write(requests.get(url, params).content)
         
